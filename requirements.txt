@@ -1,0 +1,8 @@
+streamlit
+osmnx
+pandana
+geopandas
+matplotlib
+seaborn
+networkx
+shapely
