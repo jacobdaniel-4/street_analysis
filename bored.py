@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 def get_activity():
-    url = "https://www.boredapi.com/api/activity/"
+    url = "http://bored.api.lewagon.com/api/activity/"
     
     response = requests.get(url)
     
