@@ -24,7 +24,7 @@ def get_activity(activity_type=None, price=None):
 st.set_page_config(page_title="Boredom Buster", page_icon=":sunglasses:", layout="centered")
 
 # App title
-st.title("Bored? Let’s Find You an Activity!")
+st.title("Let’s Find You an Activity!")
 st.markdown("### Get personalized suggestions based on your preferences.")
 
 # Styling container
