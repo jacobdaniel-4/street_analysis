@@ -69,5 +69,5 @@ if submit_button:
 
 # Footer
 st.write("---")
-st.markdown("#### Created by [Resources For Parents LLC](https://www.yourportfolio.com) |)
+st.markdown("#### Created by [Resources For Parents LLC](https://www.yourportfolio.com) |")
 
