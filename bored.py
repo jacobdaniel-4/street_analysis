@@ -1,8 +1,9 @@
 import streamlit as st
 import requests
 
+# Function to get activity
 def get_activity(activity_type=None, price=None):
-    url = "http://bored.api.lewagon.com/api/activity/"
+    url = "https://www.boredapi.com/api/activity/"
     
     # Prepare parameters for the request
     params = {}
@@ -20,30 +21,53 @@ def get_activity(activity_type=None, price=None):
         return "Failed to fetch activity"
 
 # Streamlit app layout
-st.title("Bored? Let's Find You an Activity!")
+st.set_page_config(page_title="Boredom Buster", page_icon=":sunglasses:", layout="centered")
 
-# Create a form for user input
-with st.form(key='activity_form'):
-    activity_type = st.selectbox(
-        "Choose activity type:",
-        options=["Any", "Recreational", "Education", "Social", "DIY", "Charity", "Cooking", "Relaxation", "Music", "Busywork"]
-    )
-    
-    price = st.slider(
-        "Select maximum price (0 for free, 1 for most expensive):",
-        0.0, 1.0, step=0.1
-    )
-    
-    # Submit button
-    submit_button = st.form_submit_button(label="Get Activity")
+# App title
+st.title("Bored? Let’s Find You an Activity!")
+st.markdown("### Get personalized suggestions based on your preferences.")
 
-# Once the form is submitted, fetch the activity
+# Styling container
+with st.container():
+    st.write("---")
+    
+    # Create a form for user input
+    st.subheader("Choose your preferences:")
+    
+    with st.form(key='activity_form'):
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            activity_type = st.selectbox(
+                "Activity type:",
+                options=["Any", "Recreational", "Education", "Social", "DIY", "Charity", "Cooking", "Relaxation", "Music", "Busywork"]
+            )
+        
+        with col2:
+            price = st.slider(
+                "Maximum price:",
+                0.0, 1.0, step=0.1, help="0 for free activities, 1 for most expensive"
+            )
+        
+        # Submit button
+        submit_button = st.form_submit_button(label="Find Activity", help="Click to get your activity suggestion")
+    
+    st.write("---")
+
+# Fetch and display the activity
 if submit_button:
+    st.subheader("Your Activity Suggestion:")
+    
     # Adjust activity_type for the API
     activity_type = None if activity_type == "Any" else activity_type
     
     # Get activity from the API
     activity = get_activity(activity_type, price)
     
-    # Display the result
-    st.write(f"Suggested activity: {activity}")
+    # Display the result in a styled box
+    st.success(f"🎉 **{activity}**")
+
+# Footer
+st.write("---")
+st.markdown("#### Created by [Your Name](https://www.yourportfolio.com) | Powered by the Bored API")
+
