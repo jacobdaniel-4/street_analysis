@@ -2,15 +2,17 @@ import streamlit as st
 import requests
 
 # Function to get activity
-def get_activity(activity_type=None, price=None):
+def get_activity(activity_type=None, accessibility=None, participants=None):
     url = "http://bored.api.lewagon.com/api/activity/"
     
     # Prepare parameters for the request
     params = {}
     if activity_type:
         params['type'] = activity_type.lower()
-    if price is not None:
-        params['price'] = price
+    if accessibility is not None:
+        params['accessibility'] = accessibility
+    if participants is not None:
+        params['participants'] = participants
     
     response = requests.get(url, params=params)
     
@@ -24,7 +26,7 @@ def get_activity(activity_type=None, price=None):
 st.set_page_config(page_title="Boredom Buster", page_icon=":sunglasses:", layout="centered")
 
 # App title
-st.title("Let’s Find You an Activity!")
+st.title("Bored? Let’s Find You an Activity!")
 st.markdown("### Get personalized suggestions based on your preferences.")
 
 # Styling container
@@ -42,11 +44,15 @@ with st.container():
                 "Activity type:",
                 options=["Any", "Recreational", "Education", "Social", "DIY", "Charity", "Cooking", "Relaxation", "Music", "Busywork"]
             )
+            
+            participants = st.number_input(
+                "Number of participants:", min_value=1, max_value=10, value=1, step=1
+            )
         
         with col2:
-            price = st.slider(
-                "Maximum price:",
-                0.0, 1.0, step=0.1, help="0 for free activities, 1 for most expensive"
+            accessibility = st.slider(
+                "Accessibility level:",
+                0.0, 1.0, step=0.1, help="0 for highly accessible (easy), 1 for least accessible (challenging)"
             )
         
         # Submit button
@@ -62,12 +68,11 @@ if submit_button:
     activity_type = None if activity_type == "Any" else activity_type
     
     # Get activity from the API
-    activity = get_activity(activity_type, price)
+    activity = get_activity(activity_type, accessibility, participants)
     
     # Display the result in a styled box
     st.success(f"🎉 **{activity}**")
 
 # Footer
 st.write("---")
-st.markdown("#### Created by [Resources For Parents LLC](https://www.yourportfolio.com) |")
-
+st.markdown("#### Created by [Your Name](https://www.yourportfolio.com) | Powered by the Bored API")
