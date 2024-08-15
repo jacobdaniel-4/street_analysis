@@ -3,7 +3,7 @@ import requests
 
 # Function to get activity
 def get_activity(activity_type=None, price=None):
-    url = "https://www.boredapi.com/api/activity/"
+    url = "http://bored.api.lewagon.com/api/activity/"
     
     # Prepare parameters for the request
     params = {}
@@ -69,5 +69,5 @@ if submit_button:
 
 # Footer
 st.write("---")
-st.markdown("#### Created by [Your Name](https://www.yourportfolio.com) | Powered by the Bored API")
+st.markdown("#### Created by [Resources For Parents LLC](https://www.yourportfolio.com) |)
 
